@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 function App() {
   const API_KEY = import.meta.env.VITE_API_KEY;
 
-  const [city, setCity] = useState("Bekasi");
+  const [city, setCity] = useState("Jakarta"); // ini yang dipakai fetch
+  const [query, setQuery] = useState("Jakarta"); // ini cuma buat input
   const [data, setData] = useState([]);
 
   const fetchWeather = async () => {
@@ -23,16 +24,23 @@ function App() {
     fetchWeather();
   }, [city]);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      setCity(query);
+    }
+  };
+
   return (
     <main className="p-[15px] bg-[#191B1F] w-full h-screen text-white font-[Plus Jakarta Sans] flex items-center justify-center">
-      <div className="max-w-[452px] flex flex-col px-[47px] py-10 gap-[49px] bg-[#99999910] border-1 border-white/10 rounded-[28px]">
+      <div className="w-[452px] flex flex-col px-[47px] py-10 gap-[49px] bg-[#99999910] border-1 border-white/10 rounded-[28px]">
         <div className="flex gap-2.5 px-5 py-2.5 w-full bg-[#C2D4D3] rounded-[25px]">
           <img src="/search-ic.svg" alt="" />
           <input
             type="text"
-            placeholder="Masukkan Kota"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
+            placeholder="Search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
             className="text-[#7E7C7C] outline-0"
           />
         </div>
@@ -59,7 +67,8 @@ function App() {
           <p>{data.weather?.[0].main}</p>
           <p>Feels like - {data.main?.feels_like}°C</p>
         </div>
-        <div className="w-[341px] flex justify-between border-[1px] border-[#00000010] shadow p-[15px] bg-[#25222265] rounded-[12px]">
+
+        <div className="w-full flex justify-between border-[1px] border-[#00000010] shadow p-[15px] bg-[#25222265] rounded-[12px]">
           <div className="flex gap-[8px]">
             <img src="/humidity-ic.svg" alt="Icon" className="w-[47px]" />
             <div>
@@ -72,8 +81,8 @@ function App() {
           <div className="flex gap-[8px]">
             <img src="/wind.svg" alt="Icon" className="w-[47px]" />
             <div>
-              <p className="text-[24px] font-semibold w-full]">
-                {data.main?.humidity}km/h
+              <p className="text-[24px] font-semibold w-full">
+                {data.wind?.speed} km/h
               </p>
               <p className="leading-5">Wind Speed</p>
             </div>
