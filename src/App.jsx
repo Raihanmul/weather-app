@@ -1,12 +1,13 @@
 import axios from "axios";
+import weatherIcons from "./data/iconData";
 import { useState, useEffect } from "react";
 
 function App() {
   const API_KEY = import.meta.env.VITE_API_KEY;
 
-  const [city, setCity] = useState("Jakarta"); // ini yang dipakai fetch
-  const [query, setQuery] = useState("Jakarta"); // ini cuma buat input
-  const [data, setData] = useState([]);
+  const [city, setCity] = useState("Jakarta");
+  const [query, setQuery] = useState("Jakarta");
+  const [data, setData] = useState({}); // pakai object
 
   const fetchWeather = async () => {
     try {
@@ -30,6 +31,11 @@ function App() {
     }
   };
 
+  function WeatherIcon({ code }) {
+    const iconSrc = weatherIcons[code] || "/weather-icons/clear-day.svg";
+    return <img src={iconSrc} alt="Weather icon" />;
+  }
+
   return (
     <main className="p-[15px] bg-[#191B1F] w-full h-screen text-white font-[Plus Jakarta Sans] flex items-center justify-center">
       <div className="w-[452px] flex flex-col px-[47px] py-10 gap-[49px] bg-[#99999910] border-1 border-white/10 rounded-[28px]">
@@ -46,14 +52,7 @@ function App() {
         </div>
 
         <div className="flex flex-col gap-[49px] justify-center items-center">
-          {data.weather && (
-            <img
-              src={`https://openweathermap.org/img/wn/${data.weather?.[0].icon}@2x.png`}
-              alt={data.weather?.[0].description}
-              className="w-[316px] h-[316px]"
-            />
-          )}
-
+          {data.weather && <WeatherIcon code={data.weather?.[0]?.icon} />}
           <p className="text-[88px] font-bold leading-[36px]">
             {data.main?.temp}°C
           </p>
@@ -64,7 +63,7 @@ function App() {
         </div>
 
         <div className="w-full">
-          <p>{data.weather?.[0].main}</p>
+          <p>{data.weather?.[0]?.main}</p>
           <p>Feels like - {data.main?.feels_like}°C</p>
         </div>
 

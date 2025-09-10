@@ -1,0 +1,21 @@
+const weatherIcons = {
+  "01d": "/weather-icons/clear-day.svg",
+  "01n": "/weather-icons/clear-night.svg",
+  "02d": "/weather-icons/few-cloudy-day.svg",
+  "02n": "/weather-icons/few-cloudy-night.svg",
+  "03d": "/weather-icons/cloudy.svg",
+  "03n": "/weather-icons/cloudy.svg",
+  "04d": "/weather-icons/broken-clouds.svg",
+  "04n": "/weather-icons/broken-clouds.svg",
+  "09d": "/weather-icons/shower-rain.svg",
+  "09n": "/weather-icons/shower-rain.svg",
+  "10d": "/weather-icons/rain-day.svg",
+  "10n": "/weather-icons/rain-night.svg",
+  "11d": "/weather-icons/thunderstorm.svg",
+  "11n": "/weather-icons/thunderstorm.svg",
+  "13d": "/weather-icons/snow.svg",
+  "13n": "/weather-icons/snow.svg",
+  "50d": "/weather-icons/mist.svg",
+  "50n": "/weather-icons/mist-night.svg",
+};
+export default weatherIcons;
